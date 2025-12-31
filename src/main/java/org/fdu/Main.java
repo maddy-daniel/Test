@@ -25,7 +25,7 @@ public class Main {
             System.out.println("3. Type 'quit' to exit");
             System.out.print("Enter command: ");
 
-            String input = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim().toLowerCase();
 
             if(input.equals("print")) {
                 System.out.println("Enter 1 for All Income Recurring");
@@ -80,13 +80,13 @@ public class Main {
             }
 
             type = commands[0];
-            if (!type.equals("Income") && !type.equals("Expense")) {
+            if (!type.equals("income") && !type.equals("expense")) {
                 System.out.println("Error: Please Enter Income or Expense");
                 continue;
             }
 
             occurrence = commands[1];
-            if (!occurrence.equals("Recurring") && !occurrence.equals("Incidental")) {
+            if (!occurrence.equals("recurring") && !occurrence.equals("incidental")) {
                 System.out.println("Error: Please Enter Recurring or Incidental");
                 continue;
             }
