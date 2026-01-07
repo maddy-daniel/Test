@@ -1,14 +1,6 @@
 package org.fdu;
 import java.util.LinkedList;
-class Expense{
-    String expenseName;
-    float expenseAmount;
 
-    public Expense(String expenseName, float expenseAmount){
-        this.expenseName = expenseName;
-        this.expenseAmount = expenseAmount;
-    }
-}
 public class TrackExpense {
     LinkedList<Expense>ExpenseRecurring;
     LinkedList<Expense>ExpenseIncidental;

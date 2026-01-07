@@ -1,15 +1,6 @@
 package org.fdu;
 import java.util.LinkedList;
 
-class Income{
-    String incomeName;
-    float incomeAmount;
-
-    public Income(String incomeName, float incomeAmount){
-        this.incomeName = incomeName;
-        this.incomeAmount = incomeAmount;
-    }
-}
 public class TrackIncome {
     LinkedList<Income>IncomeRecurring;
     LinkedList<Income>IncomeIncidental;

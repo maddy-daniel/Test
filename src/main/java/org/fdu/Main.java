@@ -127,19 +127,19 @@ public class Main {
 
             if (type.equals("Income") && occurrence.equals("Recurring")) {
                 incomeObj.addIncomeRecurring(name, amount);
-                System.out.println("✓ Added to Recurring Income");
+                System.out.println("Added to Recurring Income");
             }
             else if (type.equals("Income") && occurrence.equals("Incidental")) {
                 incomeObj.addIncomeIncidental(name, amount);
-                System.out.println("✓ Added to Incidental Income");
+                System.out.println("Added to Incidental Income");
             }
             else if (type.equals("Expense") && occurrence.equals("Recurring")) {
                 expenseObj.addExpenseRecurring(name, amount);
-                System.out.println("✓ Added to Recurring Expense");
+                System.out.println("Added to Recurring Expense");
             }
             else if (type.equals("Expense") && occurrence.equals("Incidental")) {
                 expenseObj.addExpenseIncidental(name, amount);
-                System.out.println("✓ Added to Incidental Expense");
+                System.out.println("Added to Incidental Expense");
             }
         }
         scanner.close();
