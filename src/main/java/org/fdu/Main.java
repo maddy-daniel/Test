@@ -25,7 +25,7 @@ public class Main {
             System.out.println("3. Type 'quit' to exit");
             System.out.print("Enter command: ");
 
-            String input = scanner.nextLine().trim();
+            String input = scanner.nextLine().trim().toLowerCase();
 
             if(input.equals("print")) {
                 System.out.println("Enter 1 for All Income Recurring");
@@ -37,8 +37,8 @@ public class Main {
 
                 try {
                     numInput = Integer.parseInt(printInput);
-                    if (numInput < 0) {
-                        System.out.println("Error: Number MUST be positive. Please re-enter Number.");
+                    if (numInput <= 0 || numInput>5) {
+                        System.out.println("Error: Number MUST be positive and nonzero. Please re-enter Number.");
                         continue;
                     }
                 } catch (NumberFormatException e) {
