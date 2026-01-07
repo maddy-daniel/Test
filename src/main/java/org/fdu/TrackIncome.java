@@ -23,6 +23,15 @@ public class TrackIncome {
         IncomeRecurring.add(new Income(incomeName,incomeAmount));
     }
 
+    public float getIncomeRecurring(String incomeName){
+        for (int i = 0; i < IncomeRecurring.size(); i++) {
+            if (IncomeRecurring.get(i).incomeName.equals(incomeName)){
+                return (float) IncomeRecurring.get(i).incomeAmount;
+            }
+        }
+        return 0F;
+    }
+
     public void addIncomeIncidental(String incomeName, float incomeAmount){
         IncomeIncidental.add(new Income(incomeName, incomeAmount));
     }

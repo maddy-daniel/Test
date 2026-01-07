@@ -80,13 +80,13 @@ public class Main {
             }
 
             type = commands[0];
-            if (!type.equals("Income") && !type.equals("Expense")) {
+            if (!type.equals("income") && !type.equals("expense")) {
                 System.out.println("Error: Please Enter Income or Expense");
                 continue;
             }
 
             occurrence = commands[1];
-            if (!occurrence.equals("Recurring") && !occurrence.equals("Incidental")) {
+            if (!occurrence.equals("recurring") && !occurrence.equals("incidental")) {
                 System.out.println("Error: Please Enter Recurring or Incidental");
                 continue;
             }
