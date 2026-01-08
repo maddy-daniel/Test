@@ -30,7 +30,7 @@ public class TrackIncome {
     public void printIncomeRecurring() {
         System.out.println("Recurring Income: ");
         for(Income income: IncomeRecurring){
-            System.out.printf("%s: $%.2f\n", income.incomeName, income.incomeAmount);
+            System.out.printf("%s: $%.2f\n\n", income.incomeName, income.incomeAmount);
         }
     }
     public void printIncomeIncidental(){
