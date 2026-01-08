@@ -22,8 +22,18 @@ public class UI {
                 displayMessage("Add entry in the format: Income/Expense Recurring/Incidental Name Amount");
                 String inputEntry = scanner.nextLine().trim().toLowerCase();
                 addEntryCommand(inputEntry);
-                displayMainMenu();
-                input = scanner.nextLine().trim().toLowerCase();
+
+                displayMessage("Enter 'yes' if you want to add another entry");
+                displayMessage("Enter 'no' to return to main menu");
+                String inputContinue = scanner.nextLine().trim().toLowerCase();
+
+                if(inputContinue.equals("no")){
+                    displayTotalIncome();
+                    displayTotalExpense();
+                    displayMainMenu();
+                    input = scanner.nextLine().trim().toLowerCase();
+                }
+                continue;
             }
             else if(input.equals("print")){
                 printCommand();
@@ -174,6 +184,17 @@ public class UI {
         else{
             displayMessage("Error\n");
         }
+    }
+
+    void displayTotalIncome(){
+        float totalIncome = incomeObj.totalIncome();
+        System.out.printf("Total Income:  $%.2f\n\n", totalIncome);
+    }
+
+    void displayTotalExpense(){
+        float totalExpense = expenseObj.totalExpense();
+        System.out.printf("Total Expenses:  $%.2f\n\n", totalExpense);
+
     }
 }
 

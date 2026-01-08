@@ -4,6 +4,9 @@ import java.util.LinkedList;
 public class TrackIncome {
     LinkedList<Income>IncomeRecurring;
     LinkedList<Income>IncomeIncidental;
+    float totalIncomeIncidental = 0F;
+    float totalIncomeRecurring = 0F;
+    float totalIncome = 0F;
 
     public TrackIncome(){
         this.IncomeRecurring = new LinkedList<>();
@@ -45,6 +48,17 @@ public class TrackIncome {
         printIncomeRecurring();
         System.out.println("\n");
         printIncomeIncidental();
+    }
+
+    public float totalIncome(){
+        for(Income income: IncomeIncidental){
+            totalIncomeIncidental = totalIncomeIncidental + income.incomeAmount;
+        }
+        for(Income income: IncomeRecurring){
+            totalIncomeRecurring = totalIncomeRecurring + income.incomeAmount;
+        }
+        totalIncome = totalIncomeIncidental + totalIncomeRecurring;
+        return totalIncome;
     }
 
 }
