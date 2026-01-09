@@ -14,6 +14,7 @@ public class UI {
 
     public void run_program(){
         boolean keepRunning = true;
+        System.out.println("Welcome To Green Light or Red Light");
         displayMainMenu();
         String input = scanner.nextLine().trim().toLowerCase();
 
@@ -30,6 +31,7 @@ public class UI {
                 if(inputContinue.equals("no")){
                     displayTotalIncome();
                     displayTotalExpense();
+                    System.out.println("Welcome To Green Light or Red Light");
                     displayMainMenu();
                     input = scanner.nextLine().trim().toLowerCase();
                 }
@@ -45,14 +47,15 @@ public class UI {
                 displayExitMessage();
             }
             else{
-                displayMessage("Please enter a valid option");
+                displayMessage("Please enter a valid option\n");
+                displayMainMenu();
+                input = scanner.nextLine().trim().toLowerCase();
             }
         }
     scanner.close();
     }
 
     private void displayMainMenu(){
-        System.out.println("Welcome To Green Light or Red Light");
         System.out.println("Options");
         System.out.println("1. Type 'Add' to enter an entry");
         System.out.println("2. Type 'print' to display all entries");

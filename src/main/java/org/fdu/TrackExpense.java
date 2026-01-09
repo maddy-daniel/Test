@@ -4,9 +4,9 @@ import java.util.LinkedList;
 public class TrackExpense {
     LinkedList<Expense>ExpenseRecurring;
     LinkedList<Expense>ExpenseIncidental;
-    float totalExpenseIncidental = 0F;
-    float totalExpenseRecurring = 0F;
-    float totalIncome = 0F;
+    float totalExpenseIncidental;
+    float totalExpenseRecurring;
+    float totalIncome;
 
     public TrackExpense(){
         this.ExpenseRecurring = new LinkedList<>();
@@ -42,6 +42,10 @@ public class TrackExpense {
     }
 
     public float totalExpense(){
+        totalExpenseIncidental = 0F;
+        totalExpenseRecurring = 0F;
+        totalIncome = 0F;
+
         for(Expense expense: ExpenseIncidental){
             totalExpenseIncidental = totalExpenseIncidental + expense.expenseAmount;
         }
