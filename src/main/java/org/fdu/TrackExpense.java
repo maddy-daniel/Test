@@ -12,13 +12,24 @@ public class TrackExpense {
         this.ExpenseRecurring = new LinkedList<>();
         this.ExpenseIncidental = new LinkedList<>();
     }
-
-    public void addExpenseRecurring(String expenseName, float expenseAmount){
-        ExpenseRecurring.add(new Expense(expenseName,expenseAmount));
+    public Expense addExpenseRecurring(String expenseName, float expenseAmount){
+        Expense newExpense = new Expense(expenseName, expenseAmount);
+        ExpenseRecurring.add(newExpense);
+        return newExpense;
     }
 
-    public void addExpenseIncidental(String expenseName, float expenseAmount){
-        ExpenseIncidental.add(new Expense(expenseName, expenseAmount));
+    public Expense addExpenseIncidental(String expenseName, float expenseAmount){
+        Expense newExpense = new Expense(expenseName, expenseAmount);
+        ExpenseIncidental.add(newExpense);
+        return newExpense;
+    }
+
+    public void deleteExpenseRecurring(Expense expense) {
+        ExpenseRecurring.remove(expense);
+    }
+
+    public void deleteExpenseIncidental(Expense expense) {
+        ExpenseIncidental.remove(expense);
     }
 
     public void printExpenseRecurring(){
@@ -41,15 +52,15 @@ public class TrackExpense {
         printExpenseIncidental();
     }
 
-    public float totalExpense(){
+    public float totalExpense() {
         totalExpenseIncidental = 0F;
         totalExpenseRecurring = 0F;
         totalIncome = 0F;
 
-        for(Expense expense: ExpenseIncidental){
+        for (Expense expense : ExpenseIncidental) {
             totalExpenseIncidental = totalExpenseIncidental + expense.expenseAmount;
         }
-        for(Expense expense: ExpenseRecurring){
+        for (Expense expense : ExpenseRecurring) {
             totalExpenseRecurring = totalExpenseRecurring + expense.expenseAmount;
         }
         totalIncome = totalExpenseIncidental + totalExpenseRecurring;

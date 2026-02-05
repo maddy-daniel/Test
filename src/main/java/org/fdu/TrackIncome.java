@@ -13,8 +13,15 @@ public class TrackIncome {
         this.IncomeIncidental = new LinkedList<>();
     }
 
-    public void addIncomeRecurring(String incomeName, float incomeAmount){
-        IncomeRecurring.add(new Income(incomeName,incomeAmount));
+    public Income addIncomeRecurring(String incomeName, float incomeAmount){
+        Income newIncome = new Income(incomeName, incomeAmount);
+        IncomeRecurring.add(newIncome);
+        return newIncome;
+    }
+    public Income addIncomeIncidental(String incomeName, float incomeAmount){
+        Income newIncome = new Income(incomeName, incomeAmount);
+        IncomeIncidental.add(newIncome);
+        return newIncome;
     }
 
     public float getIncomeRecurring(String incomeName){
@@ -26,10 +33,13 @@ public class TrackIncome {
         return 0F;
     }
 
-    public void addIncomeIncidental(String incomeName, float incomeAmount){
-        IncomeIncidental.add(new Income(incomeName, incomeAmount));
+    public void deleteIncomeRecurring(Income income) {
+        IncomeRecurring.remove(income);
     }
 
+    public void deleteIncomeIncidental(Income income) {
+        IncomeIncidental.remove(income);
+    }
     public void printIncomeRecurring() {
         System.out.println("Recurring Income: ");
         for(Income income: IncomeRecurring){
