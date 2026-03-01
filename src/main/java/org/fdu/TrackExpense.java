@@ -1,69 +1,78 @@
 package org.fdu;
+
 import java.util.LinkedList;
 
 public class TrackExpense {
-    LinkedList<Expense>ExpenseRecurring;
-    LinkedList<Expense>ExpenseIncidental;
-    float totalExpenseIncidental;
-    float totalExpenseRecurring;
-    float totalIncome;
+    LinkedList<Expense> expenseRecurring;
+    LinkedList<Expense> expenseIncidental;
 
-    public TrackExpense(){
-        this.ExpenseRecurring = new LinkedList<>();
-        this.ExpenseIncidental = new LinkedList<>();
+    public TrackExpense() {
+        this.expenseRecurring   = new LinkedList<>();
+        this.expenseIncidental  = new LinkedList<>();
     }
-    public Expense addExpenseRecurring(String expenseName, float expenseAmount){
-        Expense newExpense = new Expense(expenseName, expenseAmount);
-        ExpenseRecurring.add(newExpense);
+
+    // ── Add ───────────────────────────────────────────────────────────────────
+
+    public Expense addExpenseRecurring(String name, float amount, boolean isMonthly) {
+        Expense newExpense = new Expense(name, amount, isMonthly);
+        expenseRecurring.add(newExpense);
         return newExpense;
     }
 
-    public Expense addExpenseIncidental(String expenseName, float expenseAmount){
-        Expense newExpense = new Expense(expenseName, expenseAmount);
-        ExpenseIncidental.add(newExpense);
+    public Expense addExpenseIncidental(String name, float amount, boolean isMonthly) {
+        Expense newExpense = new Expense(name, amount, isMonthly);
+        expenseIncidental.add(newExpense);
         return newExpense;
     }
+
+    // ── Delete (by object reference — timestamp makes each unique) ────────────
 
     public void deleteExpenseRecurring(Expense expense) {
-        ExpenseRecurring.remove(expense);
+        expenseRecurring.remove(expense);
     }
 
     public void deleteExpenseIncidental(Expense expense) {
-        ExpenseIncidental.remove(expense);
+        expenseIncidental.remove(expense);
     }
 
-    public void printExpenseRecurring(){
-        System.out.println("Recurring Expenses");
-        for(Expense expense: ExpenseRecurring){
-            System.out.printf("%s: $%.2f\n", expense.expenseName, expense.expenseAmount);
+    // ── Totals (weekly) ───────────────────────────────────────────────────────
+
+    /** Total weekly expenses across all entries. */
+    public float totalWeeklyExpense() {
+        float total = 0f;
+        for (Expense e : expenseRecurring)   total += e.weeklyAmount();
+        for (Expense e : expenseIncidental)  total += e.weeklyAmount();
+        return total;
+    }
+
+    /** Legacy method — keeps existing code working. */
+    public float totalExpense() {
+        return totalWeeklyExpense();
+    }
+
+    // ── Print ─────────────────────────────────────────────────────────────────
+
+    public void printExpenseRecurring() {
+        System.out.println("── Recurring Expenses ────────────────");
+        if (expenseRecurring.isEmpty()) { System.out.println("  (none)"); return; }
+        for (Expense e : expenseRecurring) {
+            System.out.printf("  %s%n  → Weekly: $%.2f%n%n", e, e.weeklyAmount());
         }
     }
 
     public void printExpenseIncidental() {
-        System.out.println("Incidental Expenses");
-        for(Expense expense: ExpenseIncidental){
-            System.out.printf("%s: $%.2f\n", expense.expenseName, expense.expenseAmount);
+        System.out.println("── Incidental Expenses ───────────────");
+        if (expenseIncidental.isEmpty()) { System.out.println("  (none)"); return; }
+        for (Expense e : expenseIncidental) {
+            System.out.printf("  %s%n  → Weekly: $%.2f%n%n", e, e.weeklyAmount());
         }
     }
 
-    public void printExpenseAll(){
+    public void printExpenseAll() {
         printExpenseRecurring();
-        System.out.println("\n");
+        System.out.println();
         printExpenseIncidental();
-    }
-
-    public float totalExpense() {
-        totalExpenseIncidental = 0F;
-        totalExpenseRecurring = 0F;
-        totalIncome = 0F;
-
-        for (Expense expense : ExpenseIncidental) {
-            totalExpenseIncidental = totalExpenseIncidental + expense.expenseAmount;
-        }
-        for (Expense expense : ExpenseRecurring) {
-            totalExpenseRecurring = totalExpenseRecurring + expense.expenseAmount;
-        }
-        totalIncome = totalExpenseIncidental + totalExpenseRecurring;
-        return totalIncome;
+        System.out.println();
+        System.out.printf("  Total Weekly Expenses: $%.2f%n%n", totalWeeklyExpense());
     }
 }

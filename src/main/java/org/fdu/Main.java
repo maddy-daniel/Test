@@ -1,8 +1,9 @@
 package org.fdu;
 
+import javafx.application.Application;
+
 public class Main {
     public static void main(String[] args) {
-        UI ui = new UI();
-        ui.run_program();
+        Application.launch(MainMenu.class, args);
     }
 }
