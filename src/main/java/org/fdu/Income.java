@@ -48,13 +48,13 @@ public class Income {
 
     /**
      * Returns weekly gross pay.
-     * Flat mode:   respects isMonthly flag (monthly → weekly via ×12/52).
+     * Flat mode:   respects isMonthly flag (monthly → weekly via ×12/50.4).
      * Hourly mode: converts pay-period hours to weekly hours, then applies
      *              overtime at 1.5× for any weekly hours beyond 40.
      */
     public double weeklyGross() {
         if (!isHourly) {
-            return isMonthly ? (incomeAmount * 12.0 / 52.0) : incomeAmount;
+            return isMonthly ? (incomeAmount * 12.0 / 50.4) : incomeAmount;
         }
         double avgWeeklyHours = payFrequency.weeklyHours(hoursPerPeriod);
         double regularHours   = Math.min(avgWeeklyHours, 40.0);
@@ -64,7 +64,7 @@ public class Income {
 
     /** Annualised gross — used by TaxCalculator. */
     public double annualGross() {
-        return weeklyGross() * 52.0;
+        return weeklyGross() * 50.4;  // 4.2 weeks/month × 12 months
     }
 
     /** Legacy float accessor (keeps TrackIncome totals working). */

@@ -3,9 +3,9 @@ package org.fdu;
 import java.util.Scanner;
 
 public class UI {
-    private Scanner      scanner;
-    private TrackIncome  incomeObj;
-    private TrackExpense expenseObj;
+    private final Scanner scanner;
+    private final TrackIncome  incomeObj;
+    private final TrackExpense expenseObj;
 
     public UI() {
         this.scanner    = new Scanner(System.in);
@@ -106,7 +106,7 @@ public class UI {
         PayFrequency freq = PayFrequency.values()[freqChoice - 1];
 
         // Hourly rate
-        System.out.printf("Enter hourly rate ($):  ");
+        System.out.print("Enter hourly rate ($):  ");
         double rate;
         try {
             rate = Double.parseDouble(scanner.nextLine().trim());

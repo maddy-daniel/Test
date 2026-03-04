@@ -3,35 +3,25 @@ package org.fdu;
 /**
  * Represents how often an employee is paid.
  * Used to convert pay-period hours → weekly hours for overtime and gross calculations.
- *
  * ── Bi-Weekly vs Semi-Monthly ────────────────────────────────────────────────
- *
  * These are often confused but are genuinely different:
- *
  *   Bi-Weekly    = paid every 2 weeks          → 26 paychecks/year
  *   Semi-Monthly = paid twice a month          → 24 paychecks/year
  *                  (e.g. on the 1st and 15th)
- *
  * The difference matters for hours-to-weekly conversion:
- *
  *   Bi-Weekly:    52 weeks ÷ 26 periods = 2.000 weeks/period  (exact)
  *   Semi-Monthly: 52 weeks ÷ 24 periods = 2.167 weeks/period  (average)
- *
  * Example — you enter 80 hours per pay period:
  *   Bi-Weekly:    80 ÷ 2.000 = 40.0 hrs/week  → no overtime
  *   Semi-Monthly: 80 ÷ 2.167 = 36.9 hrs/week  → no overtime, but lower weekly rate
- *
  * In practice, semi-monthly periods don't always land exactly 2 weeks apart
  * (some months have 28–31 days), so the 2.167 figure is an average.
  * Bi-weekly periods are always exactly 14 days.
- *
  * ── periodsPerMonth field ────────────────────────────────────────────────────
- *
  *   Weekly:       ~4.33 periods/month  (52 weeks ÷ 12 months)
  *   Bi-Weekly:    ~2.17 periods/month  (26 periods ÷ 12 months)
  *   Semi-Monthly:  2.00 periods/month  (exactly 2 per month, by definition)
  *   Monthly:       1.00 period/month   (exactly 1 per month)
- *
  * Note: periodsPerMonth is stored as a double for accuracy. All core math
  * uses periodsPerYear, which is the exact, authoritative value.
  */

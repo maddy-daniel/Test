@@ -7,14 +7,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class GraphicalUI extends Application {
 
-    private TrackIncome  trackIncome  = new TrackIncome();
-    private TrackExpense trackExpense = new TrackExpense();
+    private final TrackIncome  trackIncome  = new TrackIncome();
+    private final TrackExpense trackExpense = new TrackExpense();
 
     // ── Summary labels ────────────────────────────────────────────────────────
     private Label incomeGrossLabel;
@@ -166,7 +164,7 @@ public class GraphicalUI extends Application {
     // ─────────────────────────────────────────────────────────────────────────
     private VBox buildTaxCard() {
         taxCard = card("#16213e");
-        Label title = styledLabel("Pay Stub Summary  (NJ · Single Filer · 2024)",
+        Label title = styledLabel("Pay Stub Summary  (NJ · Single Filer · 2026)",
                 "#64748b", 11, true);
 
         taxCardContent = new VBox(10);
@@ -591,16 +589,17 @@ public class GraphicalUI extends Application {
             double otPay  = otHrsPerWeek  * weeksPerPeriod * entry.hourlyRate * 1.5;
             periodGross   = regPay + otPay;
 
-            // Per-period deductions (scale from weekly)
+            // Per-period deductions — all delegated to TaxCalculator (no raw math here)
             double weeklyGross = entry.weeklyGross();
+            double annualGross = entry.annualGross();
             double preTax      = entry.weeklyPreTax * weeksPerPeriod;
             double federal     = TaxCalculator.federalWithholdingWeekly(weeklyGross, entry.weeklyPreTax) * weeksPerPeriod;
-            double nj          = TaxCalculator.njStateTax(weeklyGross * 52)  / 52 * weeksPerPeriod;
-            double ss          = weeklyGross * 0.0620 * weeksPerPeriod;
-            double medicare    = weeklyGross * 0.0145 * weeksPerPeriod;
-            double sui         = weeklyGross * 0.00425 * weeksPerPeriod;
-            double sdi         = weeklyGross * 0.00190 * weeksPerPeriod;
-            double fli         = weeklyGross * 0.00228 * weeksPerPeriod;
+            double nj          = TaxCalculator.njStateTax(annualGross)        / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
+            double ss          = TaxCalculator.socialSecurityTax(annualGross) / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
+            double medicare    = TaxCalculator.medicareTax(annualGross)       / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
+            double sui         = TaxCalculator.njSuiTax(annualGross)          / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
+            double sdi         = TaxCalculator.njSdiTax(annualGross)          / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
+            double fli         = TaxCalculator.njFliTax(annualGross)          / TaxCalculator.WEEKS_PER_YEAR * weeksPerPeriod;
             double periodNet   = periodGross - preTax - federal - nj - ss - medicare - sui - sdi - fli;
 
             // Build entry card
